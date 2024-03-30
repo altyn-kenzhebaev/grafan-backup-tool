@@ -1,0 +1,21 @@
+{
+  "general": {
+    "debug": true,
+    "verify_ssl": true,
+    "backup_dir": "_OUTPUT_"
+  },
+  "grafana": {
+    "url": "http://34.31.226.46:3000",
+    "token": "TOKEN",
+    "search_api_limit": 5000,
+    "default_user_password": "00000000",
+    "admin_account": "admin",
+    "admin_password": "admin"
+  },
+  "gcp": {
+    "gcs_bucket_name": "altyn_bucket123",
+    "gcs_bucket_path": "grafana-backup",
+    "gcs_project_id" : "electric-wave-418217",
+    "google_application_credentials": "/home/altyn/.config/gcloud/application_default_credentials.json"
+  }
+}
