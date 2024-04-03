@@ -11,7 +11,7 @@ metadata:
   namespace: grafana-backup-tool
 data:
   GRAFANA_URL: "http://grafana.grafana-example.svc.cluster.local:80"
-  GRAFANA_TOKEN: "glsa_LSutgbP9IjxQ1A7KZBv5td5hbzqZA6fo_736d121b"
+  GRAFANA_TOKEN: "TOKEN"
   GRAFANA_ADMIN_ACCOUNT: "admin"
   GRAFANA_ADMIN_PASSWORD: "$GRAFANA_PASSWORD"  
   GCS_BUCKET_NAME: "altyn_bucket123"
