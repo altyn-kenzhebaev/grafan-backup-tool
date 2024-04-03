@@ -1,0 +1,121 @@
+k port-forward svc/grafana 8080:80 -n grafana-example
+ 1988  export ip=localhost:8080
+ 1989  curl -X POST -H "Content-Type: application/json" -d '{"name":"apiorg"}' http://admin:admin@$ip/api/orgs
+ 1990  curl -X POST -H "Content-Type: application/json" -d '{"loginOrEmail":"admin", "role": "Admin"}' http://admin:admin@$ip/api/orgs/2/users
+ 1991  curl -X POST http://admin:admin@$ip/api/user/using/2
+ 1992  curl -X POST -H "Content-Type: application/json" -d '{"name":"test", "role": "Admin"}' http://admin:admin@$ip/api/serviceaccounts
+ 1993  curl -X POST -H "Content-Type: application/json" -d '{"name":"test-token"}' http://admin:admin@$ip/api/serviceaccounts/2/tokens
+ 1994  export token=glsa_LSutgbP9IjxQ1A7KZBv5td5hbzqZA6fo_736d121b
+ 1995  vi grafana-backup-scheduler.yaml
+ 1996  k apply -f grafana-backup-scheduler.yaml 
+ 1997  alias k=kubectl
+ 1998  k apply -f grafana-backup-scheduler.yaml 
+ 1999  k get cronjobs
+ 2000  k get cronjobs -n grafana-backup-tool
+ 2001  k get cronjobs -n grafana-backup-tool -w
+ 2002  kubectl exec -it --namespace=grafana-example grafana -- bash
+ 2003  kubectl exec -it --namespace=grafana-example grafana-c95565c65-rvpq2 -- bash
+ 2004  vi grafana-backup-scheduler.yaml
+ 2005  k delete -f grafana-backup-scheduler.yaml 
+ 2006  vi grafana-backup-scheduler.yaml
+ 2007  k apply -f grafana-backup-scheduler.yaml 
+ 2008  k get cronjobs -n grafana-backup-tool -w
+ 2009  k delete -f grafana-backup-scheduler.yaml 
+ 2010  gcloud iam service-accounts create my-cronjob-sa     --display-name "CronJob Service Account"
+ 2011  export PROJECT_ID=electric-wave-418217
+ 2012  export BUCKET_NAME=altyn_bucket123
+ 2013  gcloud projects add-iam-policy-binding $PROJECT_ID     --member serviceAccount:my-cronjob-sa@$PROJECT_ID.iam.gserviceaccount.com     --role roles/storage.objectCreator     --project $PROJECT_ID
+ 2014  gcloud iam service-accounts keys create key.json     --iam-account my-cronjob-sa@$PROJECT_ID.iam.gserviceaccount.com
+ 2015  ls
+ 2016  cat key.json 
+ 2017  kubectl create secret generic my-cronjob-sa-key     --from-file=key.json
+ 2018  vi grafana-backup-scheduler.yaml
+ 2019  k apply -f grafana-backup-scheduler.yaml 
+ 2020  k delete -f grafana-backup-scheduler.yaml 
+ 2021  vi grafana-backup-scheduler.yaml
+ 2022  k apply -f grafana-backup-scheduler.yaml 
+ 2023  k get cronjobs -n grafana-backup-tool -w
+ 2024  kubectl get secrets -n grafana-backup-tool
+ 2025  k get namespace
+ 2026  kubectl create secret generic my-cronjob-sa-key     --from-file=key.json -n grafana-backup-tool
+ 2027  kubectl get secrets -n grafana-backup-tool
+ 2028  k delete -f grafana-backup-scheduler.yaml 
+ 2029  k apply -f grafana-backup-scheduler.yaml 
+ 2030  k get cronjobs -n grafana-backup-tool -w
+ 2031  k get pods -n grafana-backup-tool
+ 2032  kubectl exec -it --namespace=grafana-backup-tool grafana-backup-tool-28535280-fqksb -- bash
+ 2033  k get pods -n grafana-backup-tool
+ 2034  kubectl exec -it --namespace=grafana-backup-tool grafana-backup-tool-28535285-gtq5r -- bash
+ 2035  k delete -f grafana-backup-scheduler.yaml 
+ 2036  cat grafana-backup-scheduler.yaml 
+ 2037  kubectl get secrets -n grafana-backup-tool
+ 2038  kubectl create secret generic my-cronjob-sa-key     --from-file=key.json -n grafana-backup-tool
+ 2039  k create namespace grafana-backup-tool
+ 2040  kubectl create secret generic my-cronjob-sa-key     --from-file=key.json -n grafana-backup-tool
+ 2041  vi pod.yaml
+ 2042  k apply -f pod.yaml -n grafana-backup-tool
+ 2043  vi Dockerfile
+ 2044  docker built .
+ 2045  docker build .
+ 2046  docker images
+ 2047  docker images ls
+ 2048  docker image ls
+ 2049  docker tag --help
+ 2050  docker built . -t grafana-tool-bash
+ 2051  docker built . -t grafana-tool-bash:latest
+ 2052  docker build . -t grafana-tool-bash:latest
+ 2053  docker image ls
+ 2054  docker run -dt --name grafana-tool-bash
+ 2055  docker run -dt --name grafana-tool-bash grafana-tool-bash
+ 2056  docker ps
+ 2057  docker exec -it  977284222ef3 bash
+ 2058  docker rm 977284222ef3
+ 2059  docker stop 977284222ef3
+ 2060  docker ps
+ 2061  vi grafana-backup-scheduler.yaml
+ 2062  k delete -f pod.yaml -n grafana-backup-tool
+ 2063  kubectl get secrets -n grafana-backup-tool
+ 2064  k apply -f grafana-backup-scheduler.yaml  -n grafana-backup-tool
+ 2065  k get cronjobs -n grafana-backup-tool -w
+ 2066  k delete -f grafana-backup-scheduler.yaml 
+ 2067  echo -n 'admin' | base64
+ 2068  echo -n 'admin' | base64 > password
+ 2069  cat password 
+ 2070  kubectl create secret generic grafana-admin-password --from-file=./password
+ 2071* kubectl get secret 
+ 2072  kubectl delete secret grafana-admin-password
+ 2073  kubectl get secret -n grafana-backup-tool
+ 2074  kubectl delete secret my-cronjob-sa-key
+ 2075  k create namespace grafana-backup-tool
+ 2076  kubectl create secret generic my-cronjob-sa-key     --from-file=key.json -n grafana-backup-tool
+ 2077  kubectl create secret generic grafana-admin-password --from-file=./password -n grafana-backup-tool
+ 2078  kubectl get secret -n grafana-backup-tool
+ 2079  kubectl get secret 
+ 2080  vi grafana-backup-scheduler.yaml 
+ 2081  kubectl delete secret grafana-admin-password -n grafana-backup-tool
+ 2082  vi secret.yaml
+ 2083  k apply -f secret.yaml -n grafana-backup-tool
+ 2084  kubectl get secret -n grafana-backup-tool
+ 2085  vi grafana-backup-scheduler.yaml 
+ 2086  k apply -f grafana-backup-scheduler.yaml  -n grafana-backup-tool
+ 2087  vi grafana-backup-scheduler.yaml 
+ 2088  k apply -f grafana-backup-scheduler.yaml  -n grafana-backup-tool
+ 2089  vi grafana-backup-scheduler.yaml 
+ 2090  k apply -f grafana-backup-scheduler.yaml  -n grafana-backup-tool
+ 2091  vi grafana-backup-scheduler.yaml 
+ 2092  k apply -f grafana-backup-scheduler.yaml  -n grafana-backup-tool
+ 2093  k get cronjobs -n grafana-backup-tool -w
+ 2094  k delete -f grafana-backup-scheduler.yaml 
+ 2095  k create namespace grafana-backup-tool
+ 2096  k apply -f secret.yaml -n grafana-backup-tool
+ 2097  kubectl create secret generic my-cronjob-sa-key     --from-file=key.json -n grafana-backup-tool
+ 2098  kubectl get secret -n grafana-backup-tool
+ 2099  vi grafana-backup-scheduler.yaml 
+ 2100  kubectl edit secrets grafana-admin-password -n grafana-backup-tool
+ 2101  vi grafana-backup-scheduler.yaml 
+ 2102  k apply -f grafana-backup-scheduler.yaml  -n grafana-backup-tool
+ 2103  k get cronjobs -n grafana-backup-tool -w
+ 2104  k delete -f grafana-backup-scheduler.yaml 
+ 2105  ls
+ 2106  history 
+
