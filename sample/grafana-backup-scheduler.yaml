@@ -1,0 +1,64 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: grafana-backup-tool
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-backup-tool
+  namespace: grafana-backup-tool
+data:
+  GRAFANA_URL: "http://grafana.grafana-example.svc.cluster.local:80"
+  GRAFANA_TOKEN: "glsa_LSutgbP9IjxQ1A7KZBv5td5hbzqZA6fo_736d121b"
+  GRAFANA_ADMIN_ACCOUNT: "admin"
+  GRAFANA_ADMIN_PASSWORD: "$GRAFANA_PASSWORD"  
+  GCS_BUCKET_NAME: "altyn_bucket123"
+  GCS_BUCKET_PATH: "grafana-backup-folder"
+  GCS_PROJECT_ID: "electric-wave-418217"
+  GOOGLE_APPLICATION_CREDENTIALS: "/var/empty/key.json"
+---
+# Run grafana-backup-tool daily and store backups in an S3
+# compatible object storage such as minio
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: grafana-backup-tool
+  namespace: grafana-backup-tool
+  labels:
+    app: grafana-backup-tool
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: grafana-backup-tool
+    spec:
+      template:
+        spec:
+          restartPolicy: "Never"
+          containers:
+            - name: grafana-backup-tool
+              image: "altyn/grafana-backup-tool:latest"
+              imagePullPolicy: Always
+              volumeMounts:
+              - name: service-account-key
+                mountPath: /var/empty
+                readOnly: true
+              env:
+                - name: GRAFANA_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-admin-password
+                      key: password
+              envFrom:
+                - configMapRef:
+                    name: grafana-backup-tool
+          volumes:
+            - name: service-account-key
+              secret:
+                secretName: my-cronjob-sa-key
+            - name: config
+              configMap:
+                name: grafana-backup-tool
