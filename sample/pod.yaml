@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: grafana-backup-tool
+  labels:
+    app: grafana
+spec:
+  containers:
+    - name: grafana-backup-tool
+      image: "altyn/grafana-backup-tool:latest"
+      volumeMounts:
+      - name: service-account-key
+        mountPath: /var/secrets/google
+        readOnly: true
+  volumes:
+  - name: service-account-key
+    secret:
+      secretName: my-cronjob-sa-key
